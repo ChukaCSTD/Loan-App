@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Loan Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Approval Form</h1>
+        <form id="creditForm">
+            <label for="Acocuntntname">Account Holder Name:</label>
+            <input id="AccountName" style="width: 300px;" type="text" id="Acc_name" placeholder="Enter Account Name" required>
+            <p class="errormessage" id="errormessageAHolder">Account Holder Name is required</p>
+
+
+            <label for="annualIncome">Annual Income:</label>
+            <input type="number" id="annualIncome" required>
+            <p class="errormessage" id="errormessageAIncome">Annual Income quota not reached</p>
+
+
+            <label for="loanAmount">Loan Amount Required:</label>
+            <input type="number" id="loanAmount" required>
+            <p class="errormessage" id="errormessageLAmount">Load Amount is rquired</p>
+
+            <label for="currentAmount">Current Amount in Account:</label>
+            <input type="number" id="currentAmount" required>
+            <p class="errormessage" id="errormessageCAccount">Account Balance is rquired</p>
+
+
+            <label for="creditHistory">Credit History (6 months):</label>
+            <select id="creditHistory">
+                <option value="default">Select one option</option>
+                <hr>
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+            </select>
+
+            <label for="lastDepositDate">Last Deposit Date:</label>
+            <input type="date" id="lastDepositDate" required>
+
+            <label for="lastLoanDate">Last Loan Collection Date:</label>
+            <input type="date" id="lastLoanDate" required>
+
+            <div>
+                <label for="loanRepaymentPeriod">Loan Repayment Period (months):</label>
+                <input type="number" id="loanRepaymentPeriod" placeholder="Between 6 - 12 months" required>
+            </div>
+
+            <label for="accountType">Account Type:</label>
+            <select id="accountType">
+                <option value="default">Select one option</option>
+                <hr>
+                <option value="current">Current</option>
+                <option value="savings">Savings</option>
+            </select>
+
+            <button type="button" onclick="checkCreditWorthiness()">Submit Application</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
