@@ -11,7 +11,7 @@
         <h1>Loan Approval Form</h1>
         <form id="creditForm">
             <label for="accountName">Account Name:</label>
-            <input type="text" id="accountName" name="accountName" required>
+            <input type="text" id="accountName" name="accountName" style="width: 400px;" required>
             <span class="error-message" id="accountNameError"></span>
 
             <label for="annualIncome">Annual Income:</label>
@@ -41,13 +41,23 @@
             <input type="date" id="lastLoanDate" name="lastLoanDate" required>
             <span class="error-message" id="lastLoanDateError"></span>
 
-            <label for="repaymentStartDate">Loan Repayment Start Date:</label>
-            <input type="date" id="repaymentStartDate" name="repaymentStartDate" required>
-            <span class="error-message" id="repaymentStartDateError"></span>
+            <div style="display: grid; grid-template-columns: auto auto; gap: 10px;">
+                <div>
 
-            <label for="repaymentEndDate">Loan Repayment End Date:</label>
-            <input type="date" id="repaymentEndDate" name="repaymentEndDate" required>
-            <span class="error-message" id="repaymentEndDateError"></span>
+                    <label for="repaymentStartDate">Loan Repayment Start Date:</label>
+                    <br>
+                    <input type="date" id="repaymentStartDate" name="repaymentStartDate" required>
+                    <span class="error-message" id="repaymentStartDateError"></span>
+                </div>
+
+                <div>
+
+                    <label for="repaymentEndDate">Loan Repayment End Date:</label>
+                    <br>
+                    <input type="date" id="repaymentEndDate" name="repaymentEndDate" required>
+                    <span class="error-message" id="repaymentEndDateError"></span>
+                </div>
+            </div>
 
             <label for="accountType">Account Type:</label>
             <select id="accountType" name="accountType">
