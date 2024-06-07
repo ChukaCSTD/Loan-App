@@ -1,14 +1,16 @@
 function checkCreditWorthiness() {
+    let accountName = document.getElementById('accountName');
     let annualIncome = document.getElementById('annualIncome');
     let loanAmount = document.getElementById('loanAmount');
     let currentAmount = document.getElementById('currentAmount');
     let creditHistory = document.getElementById('creditHistory');
     let lastDepositDate = document.getElementById('lastDepositDate');
     let lastLoanDate = document.getElementById('lastLoanDate');
-    let loanRepaymentPeriod = document.getElementById('loanRepaymentPeriod');
+    let repaymentStartDate = document.getElementById('repaymentStartDate');
+    let repaymentEndDate = document.getElementById('repaymentEndDate');
     let accountType = document.getElementById('accountType');
 
-    let fields = [annualIncome, loanAmount, currentAmount, creditHistory, lastDepositDate, lastLoanDate, loanRepaymentPeriod, accountType];
+    let fields = [accountName, annualIncome, loanAmount, currentAmount, creditHistory, lastDepositDate, lastLoanDate, repaymentStartDate, repaymentEndDate, accountType];
     let valid = true;
 
     // Clear previous error messages and invalid classes
@@ -18,6 +20,12 @@ function checkCreditWorthiness() {
     });
 
     // Validate inputs
+    if (accountName.value === '') {
+        accountName.classList.add('invalid');
+        document.getElementById('accountNameError').innerText = 'Please enter the account name.';
+        document.getElementById('accountNameError').style.display = 'block';
+        valid = false;
+    }
     if (annualIncome.value === '' || parseFloat(annualIncome.value) <= 0) {
         annualIncome.classList.add('invalid');
         document.getElementById('annualIncomeError').innerText = 'Please enter a valid annual income.';
@@ -48,15 +56,33 @@ function checkCreditWorthiness() {
         document.getElementById('lastLoanDateError').style.display = 'block';
         valid = false;
     }
-    if (loanRepaymentPeriod.value === '' || parseInt(loanRepaymentPeriod.value) <= 0) {
-        loanRepaymentPeriod.classList.add('invalid');
-        document.getElementById('loanRepaymentPeriodError').innerText = 'Please enter a valid loan repayment period.';
-        document.getElementById('loanRepaymentPeriodError').style.display = 'block';
+    if (repaymentStartDate.value === '') {
+        repaymentStartDate.classList.add('invalid');
+        document.getElementById('repaymentStartDateError').innerText = 'Please enter a valid repayment start date.';
+        document.getElementById('repaymentStartDateError').style.display = 'block';
+        valid = false;
+    }
+    if (repaymentEndDate.value === '') {
+        repaymentEndDate.classList.add('invalid');
+        document.getElementById('repaymentEndDateError').innerText = 'Please enter a valid repayment end date.';
+        document.getElementById('repaymentEndDateError').style.display = 'block';
         valid = false;
     }
 
     // If validation fails, return
     if (!valid) {
+        return;
+    }
+
+    // Calculate the loan repayment period in months
+    let start = new Date(repaymentStartDate.value);
+    let end = new Date(repaymentEndDate.value);
+    let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+
+    if (months < 6 || months > 12) {
+        repaymentEndDate.classList.add('invalid');
+        document.getElementById('repaymentEndDateError').innerText = 'Repayment period must be between 6 to 12 months.';
+        document.getElementById('repaymentEndDateError').style.display = 'block';
         return;
     }
 
@@ -95,7 +121,7 @@ function checkCreditWorthiness() {
     }
 
     // Loan repayment period
-    if (parseInt(loanRepaymentPeriod.value) < 6) {
+    if (months < 6) {
         points += 5;
     }
 

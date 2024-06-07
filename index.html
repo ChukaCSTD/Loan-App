@@ -10,6 +10,10 @@
     <div class="container">
         <h1>Loan Approval Form</h1>
         <form id="creditForm">
+            <label for="accountName">Account Name:</label>
+            <input type="text" id="accountName" name="accountName" required>
+            <span class="error-message" id="accountNameError"></span>
+
             <label for="annualIncome">Annual Income:</label>
             <input type="number" id="annualIncome" name="annualIncome" required>
             <span class="error-message" id="annualIncomeError"></span>
@@ -37,9 +41,13 @@
             <input type="date" id="lastLoanDate" name="lastLoanDate" required>
             <span class="error-message" id="lastLoanDateError"></span>
 
-            <label for="loanRepaymentPeriod">Loan Repayment Period (months):</label>
-            <input type="number" id="loanRepaymentPeriod" name="loanRepaymentPeriod" required>
-            <span class="error-message" id="loanRepaymentPeriodError"></span>
+            <label for="repaymentStartDate">Loan Repayment Start Date:</label>
+            <input type="date" id="repaymentStartDate" name="repaymentStartDate" required>
+            <span class="error-message" id="repaymentStartDateError"></span>
+
+            <label for="repaymentEndDate">Loan Repayment End Date:</label>
+            <input type="date" id="repaymentEndDate" name="repaymentEndDate" required>
+            <span class="error-message" id="repaymentEndDateError"></span>
 
             <label for="accountType">Account Type:</label>
             <select id="accountType" name="accountType">
@@ -48,7 +56,7 @@
             </select>
             <span class="error-message" id="accountTypeError"></span>
 
-            <button type="button" onclick="checkCreditWorthiness()">Check Credit Worthiness</button>
+            <button type="button" onclick="checkCreditWorthiness()">Check Eligibility Score</button>
         </form>
         <div id="result"></div>
     </div>
