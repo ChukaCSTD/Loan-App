@@ -31,7 +31,7 @@ label {
     margin: 10px 0 5px;
 }
 
-input, select, button {
+input, select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -40,10 +40,18 @@ input, select, button {
 }
 
 button {
+    width: 25%;
+    padding: 10px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button:hover {

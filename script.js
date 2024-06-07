@@ -1,4 +1,4 @@
-function checkCreditWorthiness() {
+function checkApprovalRatings() {
     let accountName = document.getElementById('accountName');
     let annualIncome = document.getElementById('annualIncome');
     let loanAmount = document.getElementById('loanAmount');
