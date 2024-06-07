@@ -1,93 +1,115 @@
 function checkCreditWorthiness() {
+    let annualIncome = document.getElementById('annualIncome');
+    let loanAmount = document.getElementById('loanAmount');
+    let currentAmount = document.getElementById('currentAmount');
+    let creditHistory = document.getElementById('creditHistory');
+    let lastDepositDate = document.getElementById('lastDepositDate');
+    let lastLoanDate = document.getElementById('lastLoanDate');
+    let loanRepaymentPeriod = document.getElementById('loanRepaymentPeriod');
+    let accountType = document.getElementById('accountType');
 
-    let AccountName = document.getElementById('AccountName').value;
-    let annualIncome = parseFloat(document.getElementById('annualIncome').value);
-    let loanAmount = parseFloat(document.getElementById('loanAmount').value);
-    let currentAmount = parseFloat(document.getElementById('currentAmount').value);
-    let creditHistory = document.getElementById('creditHistory').value;
-    let lastDepositDate = new Date(document.getElementById('lastDepositDate').value);
-    let lastLoanDate = new Date(document.getElementById('lastLoanDate').value);
-    let loanRepaymentPeriod = parseInt(document.getElementById('loanRepaymentPeriod').value);
-    let accountType = document.getElementById('accountType').value;
+    let fields = [annualIncome, loanAmount, currentAmount, creditHistory, lastDepositDate, lastLoanDate, loanRepaymentPeriod, accountType];
+    let valid = true;
 
-    
-    if(AccountName === ""){
-        document.getElementById('AccountName').classList.add('error');
-        document.getElementById('errormessageAHolder').style.display = 'block';
-    }else{
-        console.log("AccountName")
-        document.getElementById('AccountName').classList.add('fore');
-        document.getElementById('errormessageAHolder').style.display = 'none';
+    // Clear previous error messages and invalid classes
+    fields.forEach(field => {
+        field.classList.remove('invalid');
+        document.getElementById(field.id + 'Error').style.display = 'none';
+    });
+
+    // Validate inputs
+    if (annualIncome.value === '' || parseFloat(annualIncome.value) <= 0) {
+        annualIncome.classList.add('invalid');
+        document.getElementById('annualIncomeError').innerText = 'Please enter a valid annual income.';
+        document.getElementById('annualIncomeError').style.display = 'block';
+        valid = false;
+    }
+    if (loanAmount.value === '' || parseFloat(loanAmount.value) <= 0) {
+        loanAmount.classList.add('invalid');
+        document.getElementById('loanAmountError').innerText = 'Please enter a valid loan amount.';
+        document.getElementById('loanAmountError').style.display = 'block';
+        valid = false;
+    }
+    if (currentAmount.value === '' || parseFloat(currentAmount.value) <= 0) {
+        currentAmount.classList.add('invalid');
+        document.getElementById('currentAmountError').innerText = 'Please enter a valid current amount.';
+        document.getElementById('currentAmountError').style.display = 'block';
+        valid = false;
+    }
+    if (lastDepositDate.value === '') {
+        lastDepositDate.classList.add('invalid');
+        document.getElementById('lastDepositDateError').innerText = 'Please enter a valid last deposit date.';
+        document.getElementById('lastDepositDateError').style.display = 'block';
+        valid = false;
+    }
+    if (lastLoanDate.value === '') {
+        lastLoanDate.classList.add('invalid');
+        document.getElementById('lastLoanDateError').innerText = 'Please enter a valid last loan collection date.';
+        document.getElementById('lastLoanDateError').style.display = 'block';
+        valid = false;
+    }
+    if (loanRepaymentPeriod.value === '' || parseInt(loanRepaymentPeriod.value) <= 0) {
+        loanRepaymentPeriod.classList.add('invalid');
+        document.getElementById('loanRepaymentPeriodError').innerText = 'Please enter a valid loan repayment period.';
+        document.getElementById('loanRepaymentPeriodError').style.display = 'block';
+        valid = false;
+    }
+
+    // If validation fails, return
+    if (!valid) {
+        return;
     }
 
     let points = 0;
 
-    
-
     // Check loan eligibility based on annual income
-    let maxLoanAmount = annualIncome * 0.45;
-    if (loanAmount > maxLoanAmount) {
-        document.getElementById('result').innerText = "The loan amount exceeds 45% of annual income.";
+    let maxLoanAmount = parseFloat(annualIncome.value) * 0.45;
+    if (parseFloat(loanAmount.value) > maxLoanAmount) {
+        document.getElementById('result').innerText = "Loan amount exceeds 45% of annual income.";
         return;
-    }else{
-        if(annualIncome === "" || annualIncome < 0){
-            parseFloat(document.getElementById('annualIncome').value).classList.add('error');
-            document.getElementById('errormessageAIncome').style.display = 'block';  
-        }
     }
 
     // Current amount in account
-    if (currentAmount >= loanAmount) {
+    if (parseFloat(currentAmount.value) >= parseFloat(loanAmount.value)) {
         points += 10;
     } else {
         points -= 10;
     }
 
-    if (loanAmount === "" || loanAmount< 0){
-        parseFloat(document.getElementById('loanAmount')).classList.add('error');
-        document.getElementById('errormessageLAmount').style.display = 'block';
-    } 
-    
-    
-    
     // Credit history
-    if (creditHistory === 'positive') {
+    if (creditHistory.value === 'positive') {
         points += 10;
     }
-    
-    if (currentAmount === '' || currentAmount < 0){
-        document.getElementById('currentAmount').classList.add('error');
-        document.getElementById('errormessageCAccount').style.display = 'block';
-    }
+
     // Last deposit date
     let today = new Date();
-    let depositDifference = Math.floor((today - lastDepositDate) / (1000 * 60 * 60 * 24));
+    let depositDifference = Math.floor((today - new Date(lastDepositDate.value)) / (1000 * 60 * 60 * 24));
     if (depositDifference <= 30) {
         points += 5;
     }
 
     // Last loan collection date
-    let loanDifference = Math.floor((today - lastLoanDate) / (1000 * 60 * 60 * 24));
+    let loanDifference = Math.floor((today - new Date(lastLoanDate.value)) / (1000 * 60 * 60 * 24));
     if (loanDifference > 180) {
         points += 10;
     }
 
     // Loan repayment period
-    if (loanRepaymentPeriod < 6) {
+    if (parseInt(loanRepaymentPeriod.value) < 6) {
         points += 5;
     }
 
     // Account type
-    if (accountType === 'current') {
+    if (accountType.value === 'current') {
         points += 10;
-    } else if (accountType === 'savings') {
+    } else if (accountType.value === 'savings') {
         points += 5;
     }
 
     // Check if points are sufficient for loan approval
     if (points >= 30) {
-        document.getElementById('result').innerText = "Your Loan is Approved! Total Points: " + points;
+        document.getElementById('result').innerText = "Loan Approved! Total Points: " + points;
     } else {
-        document.getElementById('result').innerText = "Your Loan has been Denied. Your Total Points are: " + points;
+        document.getElementById('result').innerText = "Loan Denied. Total Points: " + points;
     }
 }

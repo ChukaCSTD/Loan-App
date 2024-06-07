@@ -10,53 +10,45 @@
     <div class="container">
         <h1>Loan Approval Form</h1>
         <form id="creditForm">
-            <label for="Acocuntntname">Account Holder Name:</label>
-            <input id="AccountName" style="width: 300px;" type="text" id="Acc_name" placeholder="Enter Account Name" required>
-            <p class="errormessage" id="errormessageAHolder">Account Holder Name is required</p>
-
-
             <label for="annualIncome">Annual Income:</label>
-            <input type="number" id="annualIncome" required>
-            <p class="errormessage" id="errormessageAIncome">Annual Income quota not reached</p>
-
+            <input type="number" id="annualIncome" name="annualIncome" required>
+            <span class="error-message" id="annualIncomeError"></span>
 
             <label for="loanAmount">Loan Amount Required:</label>
-            <input type="number" id="loanAmount" required>
-            <p class="errormessage" id="errormessageLAmount">Load Amount is rquired</p>
+            <input type="number" id="loanAmount" name="loanAmount" required>
+            <span class="error-message" id="loanAmountError"></span>
 
             <label for="currentAmount">Current Amount in Account:</label>
-            <input type="number" id="currentAmount" required>
-            <p class="errormessage" id="errormessageCAccount">Account Balance is rquired</p>
-
+            <input type="number" id="currentAmount" name="currentAmount" required>
+            <span class="error-message" id="currentAmountError"></span>
 
             <label for="creditHistory">Credit History (6 months):</label>
-            <select id="creditHistory">
-                <option value="default">Select one option</option>
-                <hr>
+            <select id="creditHistory" name="creditHistory">
                 <option value="positive">Positive</option>
                 <option value="negative">Negative</option>
             </select>
+            <span class="error-message" id="creditHistoryError"></span>
 
             <label for="lastDepositDate">Last Deposit Date:</label>
-            <input type="date" id="lastDepositDate" required>
+            <input type="date" id="lastDepositDate" name="lastDepositDate" required>
+            <span class="error-message" id="lastDepositDateError"></span>
 
             <label for="lastLoanDate">Last Loan Collection Date:</label>
-            <input type="date" id="lastLoanDate" required>
+            <input type="date" id="lastLoanDate" name="lastLoanDate" required>
+            <span class="error-message" id="lastLoanDateError"></span>
 
-            <div>
-                <label for="loanRepaymentPeriod">Loan Repayment Period (months):</label>
-                <input type="number" id="loanRepaymentPeriod" placeholder="Between 6 - 12 months" required>
-            </div>
+            <label for="loanRepaymentPeriod">Loan Repayment Period (months):</label>
+            <input type="number" id="loanRepaymentPeriod" name="loanRepaymentPeriod" required>
+            <span class="error-message" id="loanRepaymentPeriodError"></span>
 
             <label for="accountType">Account Type:</label>
-            <select id="accountType">
-                <option value="default">Select one option</option>
-                <hr>
+            <select id="accountType" name="accountType">
                 <option value="current">Current</option>
                 <option value="savings">Savings</option>
             </select>
+            <span class="error-message" id="accountTypeError"></span>
 
-            <button type="button" onclick="checkCreditWorthiness()">Submit Application</button>
+            <button type="button" onclick="checkCreditWorthiness()">Check Credit Worthiness</button>
         </form>
         <div id="result"></div>
     </div>
